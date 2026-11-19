@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery - Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <main class="container mt-5">
+    <h2>Liquidación de Delivery (Bootstrap)</h2>
+    <button type="button" class="btn btn-primary" id="body_btNuevoEnvio">Nuevo envío</button>
+    <hr />
+    <h3>Envíos registrados</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Guía</th><th>Tipo</th><th>Costo de envío</th></tr>
+        </thead>
+        <tbody id="body_envios"></tbody>
+      </table>
+    </div>
+    <div class="alert alert-info">
+      <p class="mb-1">Total recaudado en envíos Moto: <strong id="body_lblMoto">$0.00</strong></p>
+      <p class="mb-1">Total recaudado en envíos Bici: <strong id="body_lblBici">$0.00</strong></p>
+      <p class="mb-0">Promedio general de costo de envío: <strong id="body_lblPromedio">$0.00</strong></p>
+    </div>
+  </main>
+
+  <div class="modal fade" id="envio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="envio_form">
+          <div class="modal-header">
+            <h5 class="modal-title">Procesar envío</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <label class="form-label" for="envio_inGuia">Número de guía:</label>
+            <input type="text" class="form-control mb-3" id="envio_inGuia" required />
+            <label class="form-label" for="envio_inMontoPedido">Monto del pedido:</label>
+            <input type="number" class="form-control mb-3" id="envio_inMontoPedido" min="0" step="0.01" required />
+            <label class="form-label" for="envio_inTipo">Tipo de envío:</label>
+            <select class="form-select mb-3" id="envio_inTipo">
+              <option value="Moto">Moto</option>
+              <option value="Bici">Bicicleta</option>
+            </select>
+            <div class="mb-3" id="envio_grupoDistancia">
+              <label class="form-label" for="envio_inDistancia">Distancia (km):</label>
+              <input type="number" class="form-control" id="envio_inDistancia" min="0" step="0.1" />
+            </div>
+            <div id="envio_grupoBici" hidden>
+              <label class="form-label" for="envio_inBolsaTermica">Bolsa térmica:</label>
+              <select class="form-select mb-3" id="envio_inBolsaTermica">
+                <option value="No">No</option>
+                <option value="Si">Sí</option>
+              </select>
+              <label class="form-label" for="envio_inHoraPico">¿Hora pico?</label>
+              <select class="form-select" id="envio_inHoraPico">
+                <option value="No">No</option>
+                <option value="Si">Sí</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="envio_btCancelar" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" id="envio_btAceptar">Aceptar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import CDelivery from "./dist/controllers/cDelivery.js";
+    import CEnvio from "./dist/controllers/cEnvio.js";
+    import VDeliveryBootstrap from "./dist/views/vDeliveryBootstrap.js";
+    import VEnvioBootstrap from "./dist/views/vEnvioBootstrap.js";
+
+    const vistaDelivery = new VDeliveryBootstrap();
+    const vistaEnvio = new VEnvioBootstrap();
+    const controladorEnvio = new CEnvio(vistaEnvio);
+    new CDelivery(vistaDelivery, controladorEnvio);
+  </script>
+</body>
+</html>

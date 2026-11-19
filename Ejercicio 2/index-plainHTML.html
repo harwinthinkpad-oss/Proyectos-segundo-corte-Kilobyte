@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convención - HTML Plano</title>
+</head>
+<body>
+  <section id="body">
+    <h2>Convención de Cosplay y Cultura Pop (HTML Plano)</h2>
+    <button id="body_btNuevoAsistente">Nuevo asistente</button>
+    <hr>
+    <pre id="body_reporte">Total recaudado en taquilla: $0
+Promedio pagado por Cosplayers: $0</pre>
+  </section>
+
+  <section id="asistente" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
+    <h5>Procesar asistente</h5>
+    <form id="asistente_form">
+      <div>
+        <label>Nombre:
+          <input type="text" id="asistente_inNombre" required />
+        </label>
+      </div>
+      <div>
+        <label>Cédula:
+          <input type="number" id="asistente_inCedula" min="1" step="1" required />
+        </label>
+      </div>
+      <div>
+        <label>Tipo de pase:
+          <select id="asistente_inTipo">
+            <option value="Visitante">Visitante</option>
+            <option value="Cosplayer">Cosplayer concursante</option>
+          </select>
+        </label>
+      </div>
+      <div id="asistente_grupoPreventa">
+        <label>Compró en preventa:
+          <select id="asistente_inPreventa">
+            <option value="No">No</option>
+            <option value="Si">Sí</option>
+          </select>
+        </label>
+      </div>
+      <div id="asistente_grupoGrupal" hidden>
+        <label><input type="checkbox" id="asistente_inGrupal" /> Participa en pasarela grupal</label>
+      </div>
+      <br />
+      <button type="button" id="asistente_btCancelar">Cancelar</button>
+      <button type="submit" id="asistente_btAceptar">Aceptar</button>
+    </form>
+  </section>
+
+  <script type="module">
+    import CConvencion from "./dist/controllers/cConvencion.js";
+    import CAsistente from "./dist/controllers/cAsistente.js";
+    import VConvencionPlain from "./dist/views/vConvencionPlain.js";
+    import VAsistentePlain from "./dist/views/vAsistentePlain.js";
+
+    const vistaConvencion = new VConvencionPlain();
+    const vistaAsistente = new VAsistentePlain();
+    const controladorAsistente = new CAsistente(vistaAsistente);
+    new CConvencion(vistaConvencion, controladorAsistente);
+  </script>
+</body>
+</html>

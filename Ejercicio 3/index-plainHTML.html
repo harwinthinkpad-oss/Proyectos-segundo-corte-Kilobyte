@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery - HTML Plano</title>
+</head>
+<body>
+  <section id="body">
+    <h2>Liquidación de Delivery (HTML Plano)</h2>
+    <button id="body_btNuevoEnvio">Nuevo envío</button>
+    <hr>
+    <pre id="body_reporte">Total recaudado en envíos Moto: $0.00
+Total recaudado en envíos Bici: $0.00
+Promedio general de costo de envío: $0.00</pre>
+  </section>
+
+  <section id="envio" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
+    <h5>Procesar envío</h5>
+    <form id="envio_form">
+      <div>
+        <label>Número de guía:
+          <input type="text" id="envio_inGuia" required />
+        </label>
+      </div>
+      <div>
+        <label>Monto del pedido:
+          <input type="number" id="envio_inMontoPedido" min="0" step="0.01" required />
+        </label>
+      </div>
+      <div>
+        <label>Tipo de envío:
+          <select id="envio_inTipo">
+            <option value="Moto">Moto</option>
+            <option value="Bici">Bicicleta</option>
+          </select>
+        </label>
+      </div>
+      <div id="envio_grupoDistancia">
+        <label>Distancia (km):
+          <input type="number" id="envio_inDistancia" min="0" step="0.1" />
+        </label>
+      </div>
+      <div id="envio_grupoBici" hidden>
+        <label>Bolsa térmica:
+          <select id="envio_inBolsaTermica">
+            <option value="No">No</option>
+            <option value="Si">Sí</option>
+          </select>
+        </label>
+        <br />
+        <label>¿Hora pico?
+          <select id="envio_inHoraPico">
+            <option value="No">No</option>
+            <option value="Si">Sí</option>
+          </select>
+        </label>
+      </div>
+      <br />
+      <button type="button" id="envio_btCancelar">Cancelar</button>
+      <button type="submit" id="envio_btAceptar">Aceptar</button>
+    </form>
+  </section>
+
+  <script type="module">
+    import CDelivery from "./dist/controllers/cDelivery.js";
+    import CEnvio from "./dist/controllers/cEnvio.js";
+    import VDeliveryPlain from "./dist/views/vDeliveryPlain.js";
+    import VEnvioPlain from "./dist/views/vEnvioPlain.js";
+
+    const vistaDelivery = new VDeliveryPlain();
+    const vistaEnvio = new VEnvioPlain();
+    const controladorEnvio = new CEnvio(vistaEnvio);
+    new CDelivery(vistaDelivery, controladorEnvio);
+  </script>
+</body>
+</html>
