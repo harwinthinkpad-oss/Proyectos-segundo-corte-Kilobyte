@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plataforma de Streaming Musical</title>
+  </head>
+  <body>
+    <main>
+      <section id="plataforma">
+        <h1>Plataforma de Streaming Musical</h1>
+        <p>Agrega las suscripciones para calcular sus cobros mensuales.</p>
+        <button id="plataforma_btNuevaSuscripcion" type="button">
+          Nueva suscripción
+        </button>
+
+        <h2>Cobro mensual por usuario</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Correo</th>
+              <th scope="col">Cobro mensual</th>
+            </tr>
+          </thead>
+          <tbody id="plataforma_tbCobros"></tbody>
+        </table>
+
+        <p>
+          Ingreso total mensual:
+          <strong id="plataforma_lblIngresoTotal">$0</strong>
+        </p>
+        <p>
+          Suscripciones estudiantiles con descuento vigente:
+          <strong id="plataforma_lblEstudiantesVigentes">0</strong>
+        </p>
+        <p>
+          Mayor cantidad de playlists creadas por un estudiante:
+          <strong id="plataforma_lblMayorPlaylistsEstudiante">0</strong>
+        </p>
+      </section>
+
+      <section id="suscripcion" hidden>
+        <h2>Nueva suscripción</h2>
+        <form id="suscripcion_form">
+          <p>
+            <label for="suscripcion_inCorreo">Correo del usuario:</label>
+            <input
+              id="suscripcion_inCorreo"
+              name="correo"
+              type="email"
+              autocomplete="email"
+              required
+            />
+          </p>
+          <p>
+            <label for="suscripcion_slTipoPlan">Tipo de plan:</label>
+            <select id="suscripcion_slTipoPlan" name="tipoPlan" required>
+              <option value="estudiante">Estudiante</option>
+              <option value="duo">Dúo</option>
+            </select>
+          </p>
+          <p>
+            <label for="suscripcion_slCarnetVigente">Carnet universitario vigente:</label>
+            <select id="suscripcion_slCarnetVigente" name="carnetVigente">
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </p>
+          <p>
+            <label for="suscripcion_inCantidadPlaylists">Cantidad de playlists creadas:</label>
+            <input
+              id="suscripcion_inCantidadPlaylists"
+              name="cantidadPlaylists"
+              type="number"
+              min="0"
+              step="1"
+              required
+            />
+          </p>
+          <p id="suscripcion_lblError" role="alert" hidden></p>
+          <button id="suscripcion_btCancelar" type="button">Cancelar</button>
+          <button id="suscripcion_btAceptar" type="submit">Aceptar</button>
+        </form>
+      </section>
+    </main>
+
+    <script type="module">
+      import cPlataforma from "./dist/controllers/cPlataforma.js";
+      import cSuscripcion from "./dist/controllers/cSuscripcion.js";
+      import vPlataformaPlain from "./dist/views/vPlataformaPlain.js";
+      import vSuscripcionPlain from "./dist/views/vSuscripcionPlain.js";
+
+      const controladorSuscripcion = new cSuscripcion(
+        new vSuscripcionPlain(),
+      );
+      new cPlataforma(
+        new vPlataformaPlain(),
+        controladorSuscripcion,
+      );
+    </script>
+  </body>
+</html>
